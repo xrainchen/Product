@@ -1,0 +1,74 @@
+﻿@charset "utf-8";
+html{color:#7e7e7e;-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;}
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td,hr,button,article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section {margin:0;padding:0;}
+article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section { display:block;}
+audio,canvas,video {display: inline-block;*display: inline;*zoom: 1;}
+body,button,input,select,textarea{font: 12px/1.5 \5FAE\8F6F\96C5\9ED1,\5b8b\4f53,Tahoma,Arial,sans-serif;}
+input:not([type]), input[type="email"], input[type="number"], input[type="password"], input[type="tel"], input[type="url"], input[type="text"],select,input{ padding:0; outline:none}
+input,select,textarea{font-size:100%;}
+textarea{resize : none;}
+table{border-collapse:collapse;border-spacing:0;}
+th{text-align:inherit;}
+fieldset,img{border:0;}
+iframe{display:block;}
+abbr,acronym{border:0;font-variant:normal;}
+del {text-decoration:line-through;}
+address,caption,cite,code,dfn,em,th,var {font-style:normal;font-weight:500;}
+ol,ul {list-style:none;}
+caption,th {text-align:left;}
+h1,h2,h3,h4,h5,h6 {font-size:100%;font-weight:500;}
+q:before,q:after {content:'';}
+a,a:hover,a:active,a:visited{ color:#444; text-decoration:none; outline:none; transition:all .2s linear; -webkit-transition:all .2s linear; }
+a:hover{color:#ff7300}
+.clearfix:after {visibility:hidden;display:block;font-size:0;content:" ";clear:both;height:0;}
+.clearfix {zoom:1;}
+body .undis {display:none;}
+.fl,.fr {display:inline;}
+.fl {float:left;}
+.fr {float:right;}
+i{ font-style:normal}
+img {font-size:0; vertical-align:top}
+html,body {color:#444; width:100%;height:100%;overflow:hidden;}
+input[type="text"]::-ms-clear, input[type="text"]::-ms-reveal{display: none;}/*删除IE10+的输入框值改变后右侧出现小X的标志 其他浏览器暂无所以删除掉*/
+::-webkit-input-placeholder { /* WebKit browsers */
+    color:    #c2c2c2;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color:    #a2a2a2;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color:    #a2a2a2;
+}
+:-ms-input-placeholder,input[type='text'].input:-ms-input-placeholder,.search-box .input input[type='text']:-ms-input-placeholder { /* Internet Explorer 10+ */
+    color:    #c2c2c2;
+}
+.input,input[type="text"].input,input[type="button"].input{border-radius:2px; border:1px solid #ddd; padding:3px 10px; line-height:21px; height:22px; vertical-align:middle; color:#4C4B4B; display:inline-block;position:relative}
+.mt10{ margin-top:10px;}
+.mt15{ margin-top:15px;}
+.mr10{ margin-right:10px;}
+.ml10{ margin-left:10px;}
+.mt20{ margin-top:20px;}
+
+.button,.button:visited{ display:inline-block; vertical-align:middle; line-height:28px; height:28px; border-radius:2px; padding:0 20px;border:1px solid #d58000; background:#ff9900; color:#fff;filter: progid:DXImageTransform.Microsoft.Alpha(opacity=100)}
+.button:hover{opacity:.7;color:#fff;filter: progid:DXImageTransform.Microsoft.Alpha(opacity=70)}
+.button.blue,.button.violet{ background:#3b80da;border-color:#2d66b0}
+.button.light-blue{ background:#31b1ff;border-color:#0e9ef5}
+.button.cancel{    background: #f9f9f9;    border-color: #ddd;    color: #666;}
+.bgWhite{ background:#fff}
+a.red,.red{color:#ff0000}
+a.yellow,.yellow{color:#ff7300}
+a.blues,.blues{color:#2d66b0}
+
+label{cursor:pointer}
+.center{text-align:center}
+.v-align-m{vertical-align: middle;display: inline-block;}
+input[type="radio"], input[type="checkbox"] {
+    width: 14px;
+    height: 14px;
+    position: relative;
+    vertical-align: middle;
+    top: -1px;
+    cursor:pointer
+}
+
+

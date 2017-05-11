@@ -1,0 +1,382 @@
+﻿<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="UTF-8">
+        <title></title>
+        
+        <link rel="stylesheet" href="./js/ArtDialog/artDialog.css" />
+        <link rel="stylesheet" href="css/reset.css" />
+        <link rel="stylesheet" href="css/index.css" />
+        <link rel="stylesheet" href="./js/Spectrum/spectrum.css" />
+    </head>
+
+    <body  >
+    <div class="head">
+        <h3>阿里装修课程之制作左侧悬浮导航</h3>
+    </div>
+    <div id="app">
+    <div class="content clearfix"> 
+    <div style="margin-top: 20px">
+        <table width="100%" cellpadding="0" cellspacing="0" border="0">
+            <thead>
+                <tr>
+                	<th style="text-align: center; line-height: 24px">海报图片地址<em class="yellow">(尺寸120x90)</em></th>
+                    <th style="text-align: center;line-height: 24px">海报图片链接</th>
+                    <th style="text-align: center;line-height: 24px">海报展示</th>
+                </tr>
+                <tr>
+                    <td style="text-align: center; line-height: 24px"><input class="input" type="text"  v-model="banner.pic"></td>
+                    <td style="text-align: center;line-height: 24px;padding-left:15px; "><input  class="input" type="text"  v-model="banner.href"></td>
+                    <td style="text-align: center;line-height: 24px"><input style="margin-left: 10px;" type="radio" name="templateTitleShowOrHide"  value="true" id="s2_0" / v-model="banner.show"><label for="s2_0">显</label><input style="margin-left: 10px;" type="radio" name="templateTitleShowOrHide" value="false" id="s2_1" v-model="banner.show" /><label for="s2_1">隐</label></td>
+                </tr>
+            </thead>
+            
+        </table>
+        <table width="100%" cellpadding="0" cellspacing="0" border="0" class="mt10">
+            <thead>
+                <tr>
+                  <td width="80">导航背景色</td>
+                  <td><input class="input" type="text" id="bgColor"></td>
+                </tr>
+            </thead>
+            
+        </table>
+        <table width="100%" cellpadding="0" cellspacing="0" border="0" class="mt10">
+            <thead>
+                <tr>
+                  <td>导航距离左边距离</td>
+                  <td><input class="input" type="text" v-on:input="input" v-model="template.left"    v-on:blur="blur(true,$event)" v-on:keydown="keydown(true,$event)"  style="width:30px;padding-left:5px;padding-right:5px">px</td>
+                  <td><a href="javascript:void(0);" class="button" v-on:click="addone(true)">加1</a><a href="javascript:void(0);" class="button ml10" v-on:click="reduce(true)">减1</a></td>
+                  
+                </tr>
+                <tr>
+                    <td colspan="3" height="10"></td>
+                </tr>
+                <tr>
+                    <td>导航距离上边距离</td>
+                  <td><input class="input" type="text" v-on:input="inputtop"  v-model="template.top" v-on:keydown="keydown(false,$event)"  v-on:blur="blur(false,$event)" style="width:30px;padding-left:5px;padding-right:5px">px</td>
+                  <td><a href="javascript:void(0);" class="button" v-on:click="addone(false)">加1</a><a href="javascript:void(0);" class="button ml10" v-on:click="reduce(false)">减1</a></td>
+                </tr>
+            </thead>
+            
+        </table>
+    </div>
+<table width="100%" cellpadding="0" cellspacing="0" border="0" class="mt20">
+
+            <thead>
+                <tr>
+                    <th style="text-align: center; line-height: 24px">导航名称</th>
+                    <th style="text-align: center;line-height: 24px">链接地址</th>
+                    <th style="text-align: center;line-height: 24px">添加导航</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><input class="input"  type="" name="" v-model="addnav.name"></td>
+                    <td  style="padding-left:15px;"><input class="input"  type="" name=""  v-model="addnav.herf"></td>
+                    <td  style="padding-left:10px;"><a href="javascript:void(0);" class="button" v-on:click="add">添加</a></td>
+                </tr>
+            </tbody>
+        </table>
+        <br>
+        <table v-if="navs.length>0" width="100%" cellpadding="0" cellspacing="0" border="0">
+
+            <thead>
+                <tr>
+                    <th  align="center" style="text-align: center;">导航名称</th>
+                    <th align="center" style="text-align: center;">链接地址</th>
+                    <th align="center" style="text-align: center;">操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="(nav,index) in navs">
+                    <td style="padding-left:0px;padding-top:10px;"><input class="input" type="" name="" v-model="nav.name" v-on:input="setInput(nav.name,$event)"></td>
+                    <td style="padding-left:15px; padding-top:10px;"><input class="input" type="" name="" v-model="nav.herf" v-on:input="setInput(nav.herf,$event)"></td>
+                    <td style="padding-left:10px; padding-top:10px;"><a href="javascript:void(0);" class="button" v-on:click="delet(index)">删除</a></td>
+                </tr>
+                <tr>
+                <td colspan="3" align="right">
+    <a href="javascript:void(0);" class="button mt20" v-on:click="create">生成代码</a></td>
+                </tr>
+            </tbody>
+        </table>
+   
+	</div>
+        <div class="link">
+        <table width="235" border="0" cellspacing="0" cellpadding="0" style="position: relative;">
+        	<tr>
+        		<td align="center" class="title">优秀应用推荐</td>
+        	</tr>
+		  <tr v-for="product in products" >
+		    <td >
+		    	<table width="232" border="0" cellspacing="0" cellpadding="0" style="background: #fff;line-height: 1;" height="100">
+				  <tr>
+				    <td style="padding:11px 0 0  10px;" height="55">
+				    	<a v-bind:href="product.aUrl" ms-attr="{title:product.name}" target="_blank" ><img v-bind:src="product.imgUrl" style="display: block"></a>
+				    </td>
+				    <td style="padding-top:11px;">
+				    <a v-bind:href="product.aUrl" ms-attr="{title:product.name}"  target="_blank" style="text-decoration: none"><h3 style="margin:0;font-size: 18px;color: #000;padding: 2px 0 13px;">{{product.name}}</h3>
+				    <span style="font-size: 12px;color: #fff;display: inline-block;padding: 4px 8px;background: #f75004;">{{product.price}}</span></a></td>
+				  </tr>
+				  <tr>
+				    <td colspan="2" style="padding:0 10px">
+				    <a v-bind:href="product.aUrl" ms-attr="{title:product.name}" target="_blank" style="text-decoration: none"><p style="margin-top: 10px;color: #636363;font-size: 12px;height: 12px;overflow: hidden;white-space: nowrap;width:210px">{{product.describe}}</p></a>
+				    </td>
+                  </tr>         
+                </table>
+            </td>
+          </tr>
+		</table>
+        </div>
+
+
+
+<div style="min-height:10px;" id="nav">
+<div v-bind:style="{ left: template.left+ 'px' , top: template.top + 'px' }" style="position: fixed;padding:0;margin:0; z-index: 100;box-shadow: 0 0 5px #333" >
+        <table width="120" border="0" cellspacing="0" cellpadding="0" v-bind:style="{'background-color':template.bgColor}" style="position: relative;text-align: center;line-height:39px;color:#fff;font-size:16px;font-family:'微软雅黑' "><tr v-if="banner.show=='true'">
+            <td ><div style="width:120px;height:76px;"><a v-bind:href="banner.href" target="_blank" ><img v-bind:src="banner.pic" alt="" width="120"></a></div></td>
+        </tr>
+          <tr v-for="nav in navs" v-if="nav.name!=''">
+            <td style="border-top: 1px solid #fff;"  ><a v-bind:href="nav.herf" target="_blank" style="display: block;text-decoration: none;color: #fff;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;width:110px;padding:0 5px;">{{nav.name}}</a></td></tr>
+    </table>
+        </div>
+ </div>
+        <div class="foot">
+        <p></p>
+            <p>每周四下午店铺运营交流旺旺群里有运营课程</p>
+            <p>欢迎加入 旺旺群:<em class="yellow">15820681151688</em>  店铺收藏QQ群:<em class="yellow">193777105</em></p>
+            <p><a target="_blank" href="http://web.im.alisoft.com/msg.aw?v=2&amp;uid=%E5%A4%A7%E6%B3%BD%E7%BD%91%E7%BB&#10;&#10;%9C&amp;site=cnalichn&amp;s=1" rel="nofollow">
+                <img border="0" src="http://amos.alicdn.com/online.aw?v=2&amp;uid=%E5%A4%A7%E6%B3%BD%E7%BD%91%E7%BB%9C&amp;site=cnalichn&amp;s=11&amp;charset=UTF-&#10;&#10;8" alt="点击这里给我发消息">
+            </a>大泽网络科技提供技术支持 不得用于其他商业 违反必究</p>
+        </div>
+        <div class="htmlBox"></div>
+    </div>
+
+    <!--拷贝代码-->
+    <div class="copy-popup" style="display: none">
+    <div class="red">拷贝代码、拷贝代码、拷贝代码、重要的事情做三遍</div>
+    	<textarea name="" id="textarea" class="mt10"></textarea>
+    </div>
+    </body>
+    <script src="./js/vue.js"></script>
+    <script src="./js/jquery-1.11.3.min.js"></script>
+    <script src="./js/ArtDialog/jquery.artDialog.js"></script>
+    <script src="./js/Spectrum/spectrum.js"></script>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+            	banner:{
+			pic:"https://img.alicdn.com/L1/249/14641382983631/1.0.0/img/14944626267823.png",
+            show:"true",
+            href:"#"
+            	},
+                template:{
+                    bgColor:"#fa3978",
+                    left:210,
+                    top:250
+                },
+                addnav:{name:"",herf:""},
+                navs:[
+                    {name:"优惠券",herf:"www.baidu.com"},
+                    {name:"年度新品",herf:"www.baidu.com"},
+                    {name:"爆款手机",herf:"www.baidu.com"},
+                    {name:"平板穿戴",herf:"www.baidu.com"},
+                    {name:"路由盒子",herf:"www.baidu.com"},
+                    {name:"精品配件",herf:"www.baidu.com"},
+                    {name:"收藏抽新品",herf:"www.baidu.com"},
+                    {name:"返回顶部",herf:"www.baidu.com"},
+                ],
+                products:[
+                    {aUrl:"https://pc.1688.com/product/detail.htm?spm=a2619h.7981886.2197893.42.ELiYFp&productCode=UIFAu1tP8OO6Pq0ht7uS1ctn74xNHjtKDmx4cXYHRmM%3D&productType=GROUP",imgUrl:"http://tools.weiwangpu.cc/Content/Images/links/logo_11.png",name:"智能关联营销推广",price:"20元/月",describe:"提供丰富关联营销模板、个性搭配、混批搭配"},
+                    {aUrl:"http://t.hhczy.com/f.html?from=https://pc.1688.com/product/operate.htm?key=k_10249351",imgUrl:"http://tools.weiwangpu.cc/Content/Images/links/logo_8.png",name:"全网流量推广",price:"50元/月",describe:"覆盖全网引流，提升店铺流量"},
+  {aUrl:"http://t.hhczy.com/f.html?from=http://pc.1688.com/product/operate.htm?key=k_10251246",imgUrl:"http://tools.weiwangpu.cc/Content/Images/links/logo_12.png",name:"精准流量推广王",price:"50元/月",describe:"站外集群网站，并联合百度、搜狗、搜搜"},
+                                      {aUrl:"https://pc.1688.com/product/detail.htm?spm=a2619h.7981886.2197893.33.92cJeK&productCode=3deABUN%2BziIyofPZ%2FbkRrK3af9NdKJNuAR%2BDmINRz3g%3D&productType=GROUP",imgUrl:"http://tools.weiwangpu.cc/Content/Images/links/logo_1.png",name:"商机助理(高级)",price:"50元/月",describe:"商机助理网页版,照搬商机助理供应产品管理功能"},
+                    {aUrl:"http://t.hhczy.com/f.html?from=http://pc.1688.com/product/operate.htm?key=k_daze1217",imgUrl:"http://tools.weiwangpu.cc/Content/Images/links/logo_1.png",name:"店长工具(高级)",price:"100元/月",describe:"高效运营工具 店铺装修 详情设计"},
+                ],
+
+            },
+            methods:{
+            	setInput:function(value,e){
+            			value=e.target.value;
+            	},
+                add:function(){
+                	if(this.addnav.name==""){
+                		alert("请先填写导航名称!");
+                		return;
+                	}
+                    this.navs.push(this.addnav);
+                    this.addnav={}
+                },
+                delet:function(index){
+                    this.navs.splice(index, 1);
+                },
+            		create:function(){
+            			locSto.setItemCateArrays(vm);
+            			art.dialog({
+		                    lock: true,
+		                    opacity: 0.4,
+		                    padding: "20",
+		                    title: "拷贝代码",
+		                    content: $(".copy-popup").get(0),
+		                    init: function () {
+		                      var html=$("#nav").prop("outerHTML");
+            				$("#textarea").val(html);
+		                    },
+		                    cancel:function(){
+
+
+		                    }
+                });
+
+            		},
+                    blur:function(type,e){
+                       
+                            if( e.target.value==''){
+                            if(type){
+                                this.template.left=0;
+                               }else{
+                                this.template.right=0
+                                }
+
+                    }
+                },
+                input:function(e){
+                    this.template.left = e.target.value.replace(/[^\d]/g, '');
+                if( this.template.left>500){
+                     this.template.left=500
+                     e.target.value=500
+                }
+                if( this.template.left<=0){
+                     this.template.left=0
+                     e.target.value=0
+                }
+                },
+                inputtop:function(e){
+                    debugger;
+                    this.template.top = e.target.value.replace(/[^\d]/g, '');
+                if( this.template.top>500){
+                     this.template.top=500
+                     e.target.value=500
+                }
+                if( this.template.top<=0){
+                     this.template.top=0
+                     e.target.value=0
+                }
+                },
+                keydown:function(type,e){
+                    if(e.keyCode==40){//减
+                            this.reduce(type);
+                    }
+                    if(e.keyCode==38){//加
+                                this.addone(type);
+                    }
+                },
+             addone:function(type){
+                if(type){
+                     this.template.left=this.template.left*1+1;
+                 }else{
+                     this.template.top=this.template.top*1+1;
+                 }
+                
+                },
+                reduce:function(type){
+                    if(type){
+                     this.template.left=this.template.left*1-1;
+                 }else{
+                     this.template.top=this.template.top*1-1;
+                 }
+                },
+            },
+            
+
+        })
+var bgColor="#fa3978";
+        var locSto = (function() {
+        var _options = { key: "dzgjAliShop", value: { valueName: "dzgjAliShop1688", cateArrays: [] ,banner:{},template:{}} };
+        var setItemCateArrays = function(cateArrays) {
+            _options.value.cateArrays = cateArrays.navs;
+            _options.value.banner = cateArrays.banner;
+            _options.value.template = cateArrays.template;
+            localStorage.setItem(_options.key, JSON.stringify(_options.value));
+        }
+        var getItemCateArrays = function () {
+            for (var i = 0; i < localStorage.length; i++) {
+                var _key = localStorage.key(i);
+                if (_key == _options.key) {
+                    var _value = JSON.parse(localStorage.getItem(_key));
+                    if (_options.value.valueName == _value.valueName) {
+                       vm.navs=_value.cateArrays;
+                       var _banner={};
+                       _banner=$.extend(true,_banner,_value.banner);
+                       vm.banner=_banner;
+                       var _template={};
+                       _template=$.extend(true,_template,_value.template);
+                       vm.template=_template;
+                       bgColor=_template.bgColor;
+                    }
+                }
+            }
+        }
+        return {
+            getItemCateArrays: function() {
+                getItemCateArrays();
+            },
+            setItemCateArrays: function(cateArrays) {
+                setItemCateArrays(cateArrays);
+            }
+        }
+
+    })();
+    locSto.getItemCateArrays();
+
+    var spectrumFontColor = $("#bgColor").spectrum({
+            showPalette: true,
+            showInput: true,
+            showAlpha: true,
+            showButtons: false,
+            preferredFormat: "rgb",
+            togglePaletteMoreText: '更多',
+            chooseText: "选择",
+            cancelText: "取消",
+            togglePaletteLessText: '收起',
+            allowEmpty: true,
+            clearText: "撤销",
+            color: bgColor, //初始的颜色
+            palette: [
+                ["#ffeaea", "#f3e5f5", "#e9fae1", "#fde5f2", "#e8f4ff", "#ffeaf3", "#fff8f3", "#ffffff"],
+                ["#ffc4c4", "#e1bee7", "#c9ecb7", "#ecb8d4", "#bcd5ec", "#f6c4db", "#ffede1", "#ebebeb"],
+                ["#ff9898", "#ce93d8", "#a3d58a", "#d187af", "#87afd4", "#f2a1c6", "#ffdcc5", "#cdcdcd"],
+                ["#ff6a6a", "#ba68c8", "#7ab15e", "#b35d8b", "#4b7faf", "#ec73aa", "#ffc197", "#989898"],
+                ["#ff3535", "#ab47bc", "#538d36", "#7b2854", "#285b8a", "#e43e89", "#fe9b5a", "#535353"],
+                ["#ff0000", "#9c27b0", "#264e12", "#4c1030", "#063662", "#df0668", "#ff6600", "#000000"]
+            ],
+            hide: function () {
+                //oneself.module.jDom().find("#borderColor").spectrum("destroy");
+            },
+            change: function(color){
+                 var hexColor;
+            if (color == null) {
+                hexColor = "transparent";
+            } else {
+                hexColor = color.toRgbString();
+            };
+            vm.template.bgColor=hexColor;
+            },
+            move: function(color){
+                var hexColor;
+            if (color == null) {
+                hexColor = "transparent";
+            } else {
+                hexColor = color.toRgbString();
+            };
+            vm.template.bgColor=hexColor;
+            },
+        });
+    </script>
+
+</html>
